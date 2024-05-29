@@ -48,9 +48,12 @@ def client():
 
     cthreads = []
     for fi in files:
-        ct = threading.Thread(target=xfer, args=(HOST, PORT, fi))
-        ct.start()
-        cthreads.append(ct)
+        if os.path.isfile(fi):
+            ct = threading.Thread(target=xfer, args=(HOST, PORT, fi))
+            ct.start()
+            cthreads.append(ct)
+        else:
+            print(f"Could not find '{fi}' in current working directory")
     
     for ct in cthreads:
         ct.join()

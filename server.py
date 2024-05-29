@@ -3,7 +3,6 @@
 import socket
 import argparse
 import threading
-import os
 
 """
 states: INIT, SENT_OK
