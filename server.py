@@ -4,17 +4,6 @@ import socket
 import argparse
 import threading
 
-"""
-states: INIT, SENT_OK
-INIT      thread is waiting to get XFER from client
-          data:   XFER <fname> <flen> string
-SENT_OK   data    bytes of the file
-if error: break out of loop, which closes sock
-
-Put \n after every sendall() string sent, except when sending file bytes
-
-"""
-
 def server():
     print("Server IP: " + socket.gethostbyname(socket.gethostname()))
     HOST = socket.gethostname()

@@ -1,35 +1,9 @@
-""" 
-client.py
-
-
-sources used:
-https://realpython.com/python-sockets/
-https://www.digitalocean.com/community/tutorials/python-socket-programming-server-client
-https://www.tutorialspoint.com/python/python_command_line_arguments.htm
-https://stackoverflow.com/questions/15753701/how-can-i-pass-a-list-as-a-command-line-argument-with-argparse
-https://www.geeksforgeeks.org/python-convert-string-to-bytes/
-https://www.tutorialspoint.com/python/os_stat.htm
-https://docs.python.org/3/library/socket.html#functions
-https://www.geeksforgeeks.org/multithreading-python-set-1/
-https://stackoverflow.com/questions/68425239/how-to-handle-multithreading-with-sockets-in-python
-https://stackoverflow.com/questions/7174927/when-does-socket-recvrecv-size-return
-"""
+# client.py
 
 import socket
 import argparse
 import threading
 import os
-
-"""
-states: INIT, SENT_OK
-INIT      thread is waiting to get XFER from client
-          data:   XFER <fname> <flen> string
-SENT_OK   data    bytes of the file
-if error: break out of loop, which closes sock
-
-Put \n after every sendall() string sent, except when sending file bytes
-
-"""
 
 def client():
     try:
@@ -54,9 +28,6 @@ def client():
             cthreads.append(ct)
         else:
             print(f"Could not find '{fi}' in current working directory")
-    
-    for ct in cthreads:
-        ct.join()
 
 def xfer(HOST, PORT, fi):
     csocket = socket.socket()
