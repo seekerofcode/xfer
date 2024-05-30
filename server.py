@@ -32,7 +32,6 @@ def server():
 def handle_client(sock, addr):
     with sock:
         # Get initial message, XFER <filename> <file-length>
-        state = "INIT"
         data = sock.recv(1024).decode().split(" ")
         if len(data) != 3 or data[0] != "XFER":
             sock.sendall(b"badly formatted message")
@@ -51,22 +50,21 @@ def handle_client(sock, addr):
             sock.close()
         # Send back success message
         sock.sendall(b"OK")
-        state = "SENT_OK"
         print(f"Ready to copy {file}-- sent OK to client")
 
         # Write transferred bytes into new file
         while True:
             data = sock.recv(1024)
             chunksize = len(data)
-            print(f"Writing {chunksize} bytes to the file '{file}'") #: " + data)
+            print(f"Writing {chunksize} bytes to the file '{file}'")
             ope.write(data)
             
             size -= chunksize
-            if size <= 0: # break & close socket if we run out of data
+            if size <= 0: # break & close socket when we finish copying
                 break
         ope.close()
         print(f"Transfer of '{file}' complete.")
-        sock.send(b"SUCCESS")
+        sock.sendall(b"SUCCESS")
         sock.close()
 
 if __name__ == '__main__':
