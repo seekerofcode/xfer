@@ -1,4 +1,4 @@
-# client-server
+# xfer
 
 CS232 project
 Parallel File Transfer Client & Server
