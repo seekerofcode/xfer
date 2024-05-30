@@ -11,8 +11,7 @@ def server():
     parser = argparse.ArgumentParser()
     parser.add_argument("port", nargs='?', default=9999) # '?' 0 or 1 args
     args = parser.parse_args()
-    PORT = args.port
-    
+    PORT = int(args.port)    
     ssocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     ssocket.bind((HOST, PORT))
     ssocket.listen()
